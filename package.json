@@ -16,7 +16,6 @@
   "bugs": {
     "url": "https://github.com/valentine1004/simple-network-front/issues"
   },
-  "homepage": "https://github.com/valentine1004/simple-network-front#readme",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -29,6 +28,7 @@
     "babel-loader": "^8.1.0",
     "css-loader": "^3.4.2",
     "html-webpack-plugin": "^4.0.1",
+    "redux-devtools": "^3.5.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.1.3",
     "ts-loader": "^6.2.2",
@@ -41,11 +41,16 @@
     "@material-ui/core": "^4.9.8",
     "@material-ui/lab": "^4.0.0-alpha.47",
     "@types/react-router-dom": "^5.1.3",
+    "axios": "^0.19.2",
     "formik": "^2.1.4",
+    "mini-css-extract-plugin": "^0.9.0",
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.5",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   }
 }

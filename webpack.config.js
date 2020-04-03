@@ -1,4 +1,6 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: './src/index.js',
@@ -7,7 +9,7 @@ module.exports = {
         filename: 'main.js'
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx']
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.css']
     },
     module: {
         rules: [
@@ -26,6 +28,10 @@ module.exports = {
                     }
                 ]
             },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader']
+            },
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             {
                 enforce: "pre",
@@ -34,6 +40,13 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'src/assets/index.html'
+        }),
+        new MiniCssExtractPlugin()
+    ],
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
         historyApiFallback: true,
