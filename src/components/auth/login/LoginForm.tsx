@@ -3,10 +3,9 @@ import Button from '@material-ui/core/Button';
 import {Formik, Form, FormikHelpers} from 'formik';
 import {Snackbar, TextField, Typography} from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
-import {API_URL} from '../../../../config';
 import {useStyles} from "./styled";
 
-interface LoginValues {
+export interface LoginValues {
     username: string,
     password: string
 }
@@ -20,38 +19,27 @@ const LoginForm = (props: any) => {
     });
 
     const login = async (values: LoginValues, actions: FormikHelpers<LoginValues>): Promise<any> => {
-        const response = await fetch(`${API_URL}/login`, {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            body: JSON.stringify(values)
-        });
 
+        props.getToken(values, props.history);
         actions.setSubmitting(false);
 
-        if (response.status === 200) {
-            let token = await response.json();
-            setOpenNotification({
-                open: true,
-                status: 'success',
-                text: response.statusText
-            });
-            localStorage.setItem('token', token.token);
-            props.history.push('/user')
-        } else {
-            setOpenNotification({
-                open: true,
-                status: 'error',
-                text: response.statusText
-            });
-            throw new Error(response.statusText);
-        }
+        // if (response.status === 200) {
+        //     let token = await response.json();
+        //     setOpenNotification({
+        //         open: true,
+        //         status: 'success',
+        //         text: response.statusText
+        //     });
+        //     localStorage.setItem('token', token.token);
+        //     props.history.push('/user')
+        // } else {
+        //     setOpenNotification({
+        //         open: true,
+        //         status: 'error',
+        //         text: response.statusText
+        //     });
+        //     throw new Error(response.statusText);
+        // }
     };
 
     return (
