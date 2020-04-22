@@ -20,11 +20,16 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/AccountBox';
+import PersonIcon from '@material-ui/icons/EmojiPeople';
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import {useStyles} from "./styled";
+import MyProfile from "../../profile/myProfile";
+import Friends from "../../profile/friends/Friends";
+import {Sections} from "../../../utils";
 
 
-export default function CustomDrawer(props: any) {
+function CustomDrawer(props: any) {
     const classes = useStyles();
     const theme = useTheme();
     const [openPanel, setOpenPanel] = React.useState(false);
@@ -131,12 +136,18 @@ export default function CustomDrawer(props: any) {
                 </div>
                 <Divider/>
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                            <ListItemText primary={text}/>
-                        </ListItem>
-                    ))}
+                    <ListItem
+                        button
+                        onClick={() => props.changeSection(Sections.MyProfile)}
+                        className={props.currentSection === Sections.MyProfile ? classes.selectedTab : ''}
+                    >
+                        <ListItemIcon>{<HomeIcon/>}</ListItemIcon>
+                        <ListItemText primary={'My profile'}/>
+                    </ListItem>
+                    <ListItem button onClick={() => props.changeSection(Sections.Friends)}>
+                        <ListItemIcon>{<PersonIcon/>}</ListItemIcon>
+                        <ListItemText primary={'Friends'}/>
+                    </ListItem>
                 </List>
                 <Divider/>
                 <List>
@@ -150,10 +161,15 @@ export default function CustomDrawer(props: any) {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
-                <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
-                </Typography>
+                {
+                    props.currentSection === Sections.MyProfile ?
+                        <MyProfile/> :
+                        props.currentSection === Sections.Friends ?
+                            <Friends/> : null
+                }
             </main>
         </div>
     );
 }
+
+export default CustomDrawer;

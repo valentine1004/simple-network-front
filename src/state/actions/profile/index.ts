@@ -6,7 +6,8 @@ import {
     GET_TOKEN_LOADING,
     GET_TOKEN_ERROR,
     GET_PROFILE_LOADING,
-    GET_PROFILE_SUCCESS, GET_PROFILE_ERROR
+    GET_PROFILE_SUCCESS, GET_PROFILE_ERROR,
+    CHANGE_SELECTED_SECTION
 } from '../../types/profile/types';
 
 const token = localStorage.getItem("token");
@@ -40,7 +41,7 @@ export function fetchToken(data: LoginValues, browserHistory: any) {
     };
 }
 
-export function fetchUser(userId: string) {
+export function fetchUser(userId: string, browserHistory: any) {
     return function (dispatch: any) {
         dispatch({
             type: GET_PROFILE_LOADING,
@@ -58,10 +59,19 @@ export function fetchUser(userId: string) {
                     payload: response.data
                 });
             }, (error) => {
+                localStorage.clear();
+                browserHistory.push('/login');
                 dispatch({
                     type: GET_PROFILE_ERROR,
                     payload: error
                 });
             });
+    }
+}
+
+export function changeCurrentSection(payload: any){
+    return {
+        type: CHANGE_SELECTED_SECTION,
+        payload
     }
 }

@@ -7,14 +7,9 @@ const UserProfile = (props: any) => {
         const userStr = localStorage.getItem("user");
         if (typeof userStr === "string") {
             const user = JSON.parse(userStr);
-            props.getProfile(user.id);
+            props.getProfile(user.id, props.history);
         }
     },[]);
-
-    const logout = () => {
-        localStorage.clear();
-        props.history.push('/login');
-    };
 
     return (
         <div>

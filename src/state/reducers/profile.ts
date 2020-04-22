@@ -1,8 +1,13 @@
+import {Sections} from "../../utils";
+
 const initialState = {
     user: {
         data: null,
         loading: false,
         error: null
+    },
+    general: {
+        currentSection: Sections.MyProfile
     }
 };
 
@@ -67,6 +72,14 @@ export default function profile(state = initialState, action: IAction) {
                     ...state.user,
                     loading: payload
                 }
+            };
+        case 'CHANGE_SELECTED_SECTION':
+            return {
+              ...state,
+              general: {
+                  ...state.general,
+                  currentSection: payload
+              }
             };
         default: {
             return state;
